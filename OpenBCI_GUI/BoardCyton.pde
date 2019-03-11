@@ -24,39 +24,18 @@ import java.io.OutputStream; //for logging raw bytes to an output file
 //------------------------------------------------------------------------
 
 final char command_stop = 's';
-// final String command_startText = "x";
 final char command_startBinary = 'b';
-final char command_startBinary_wAux = 'n';  // already doing this with 'b' now
-final char command_startBinary_4chan = 'v';  // not necessary now
-final char command_activateFilters = 'f';  // swithed from 'F' to 'f'  ... but not necessary because taken out of hardware code
-final char command_deactivateFilters = 'g';  // not necessary anymore
 
 final String command_setMode = "/";  // this is used to set the board into different modes
 
 final char[] command_deactivate_channel = {'1', '2', '3', '4', '5', '6', '7', '8', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i'};
 final char[] command_activate_channel = {'!', '@', '#', '$', '%', '^', '&', '*', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I'};
 
-int channelDeactivateCounter = 0; //used for re-deactivating channels after switching settings...
-
 final int BOARD_MODE_DEFAULT = 0;
 final int BOARD_MODE_DEBUG = 1;
 final int BOARD_MODE_ANALOG = 2;
 final int BOARD_MODE_DIGITAL = 3;
 final int BOARD_MODE_MARKER = 4;
-
-//everything below is now deprecated...
-// final String[] command_activate_leadoffP_channel = {'!', '@', '#', '$', '%', '^', '&', '*'};  //shift + 1-8
-// final String[] command_deactivate_leadoffP_channel = {'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I'};   //letters (plus shift) right below 1-8
-// final String[] command_activate_leadoffN_channel = {'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K'}; //letters (plus shift) below the letters below 1-8
-// final String[] command_deactivate_leadoffN_channel = {'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<'};   //letters (plus shift) below the letters below the letters below 1-8
-// final String command_biasAuto = "`";
-// final String command_biasFixed = "~";
-
-// ArrayList defaultChannelSettings;
-
-//here is the routine that listens to the serial port.
-//if any data is waiting, get it, parse it, and stuff it into our vector of
-//pre-allocated dataPacketBuff
 
 //------------------------------------------------------------------------
 //                       Classes
