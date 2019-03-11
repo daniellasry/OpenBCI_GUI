@@ -26,8 +26,6 @@ import java.io.OutputStream; //for logging raw bytes to an output file
 final char command_stop = 's';
 final char command_startBinary = 'b';
 
-final String command_setMode = "/";  // this is used to set the board into different modes
-
 final char[] command_deactivate_channel = {'1', '2', '3', '4', '5', '6', '7', '8', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i'};
 final char[] command_activate_channel = {'!', '@', '#', '$', '%', '^', '&', '*', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I'};
 
