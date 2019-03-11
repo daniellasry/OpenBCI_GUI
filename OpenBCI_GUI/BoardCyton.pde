@@ -17,8 +17,6 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-import java.io.OutputStream; //for logging raw bytes to an output file
-
 //------------------------------------------------------------------------
 //                       Global Variables & Instances
 //------------------------------------------------------------------------
@@ -53,7 +51,6 @@ class Cyton {
 
   private int nAuxValues;
   private boolean isNewDataPacketAvailable = false;
-  private OutputStream output; //for debugging  WEA 2014-01-26
   private int prevSampleIndex = 0;
   private int serialErrorCounter = 0;
 

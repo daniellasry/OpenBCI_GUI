@@ -187,9 +187,9 @@ class Ganglion {
     if (checkingImpedance) {
       impedanceStop();
       delay(100);
-      hub.sendCommand('b');
+      hub.sendCommand(command_startBinary);
     } else {
-      hub.sendCommand('b');
+      hub.sendCommand(command_startBinary);
     }
   }
 
