@@ -380,6 +380,7 @@ class ChannelBar{
     boolean isOn; //true means data is streaming and channel is active on hardware ... this will send message to OpenBCI Hardware
     Button onOffButton;
     int onOff_diameter, impButton_diameter;
+    int plotX, plotW;
     Button impCheckButton;
 
     GPlot plot; //the actual grafica-based GPlot that will be rendering the Time Series trace
@@ -438,9 +439,12 @@ class ChannelBar{
             impButton_diameter = 0;
         }
         numSeconds = 5;
+
+        calculatePlotDrawSize();
+
         plot = new GPlot(_parent);
-        plot.setPos(x + 36 + 4 + impButton_diameter, y);
-        plot.setDim(w - 36 - 4 - impButton_diameter, h);
+        plot.setPos(plotX, y);
+        plot.setDim(plotW, h);
         plot.setMar(0f, 0f, 0f, 0f);
         plot.setLineColor((int)channelColors[(channelNumber-1)%8]);
         plot.setXLim(-5,0);
@@ -455,28 +459,16 @@ class ChannelBar{
 
         nPoints = nPointsBasedOnDataSource();
 
-        channelPoints = new GPointsArray(nPoints);
-        timeBetweenPoints = (float)numSeconds / (float)nPoints;
-
-        for (int i = 0; i < nPoints; i++) {
-            float time = -(float)numSeconds + (float)i*timeBetweenPoints;
-            // float time = (-float(numSeconds))*(float(i)/float(nPoints));
-            // float filt_uV_value = dataBuffY_filtY_uV[channelNumber-1][dataBuffY_filtY_uV.length-nPoints];
-            float filt_uV_value = 0.0; //0.0 for all points to start
-            GPoint tempPoint = new GPoint(time, filt_uV_value);
-            channelPoints.set(i, tempPoint);
-        }
-
         plot.setPoints(channelPoints); //set the plot with 0.0 for all channelPoints to start
 
-        voltageValue = new TextBox("", x + 36 + 4 + impButton_diameter + (w - 36 - 4 - impButton_diameter) - 2, y + h);
+        voltageValue = new TextBox("", plotX + (plotW) - 2, y + h);
         voltageValue.textColor = color(bgColor);
         voltageValue.alignH = RIGHT;
         // voltageValue.alignV = TOP;
         voltageValue.drawBackground = true;
         voltageValue.backgroundColor = color(255,255,255,125);
 
-        impValue = new TextBox("", x + 36 + 4 + impButton_diameter + 2, y + h);
+        impValue = new TextBox("", plotX + 2, y + h);
         impValue.textColor = color(bgColor);
         impValue.alignH = LEFT;
         // impValue.alignV = TOP;
@@ -486,6 +478,24 @@ class ChannelBar{
         drawVoltageValue = true;
         drawImpValue = false;
 
+    }
+
+    void calculatePlotDrawSize() {
+        plotX = x + 36 + 4 + impButton_diameter;
+        plotW = w - 36 - 4 - impButton_diameter;
+        
+        channelPoints = new GPointsArray(plotW);
+        
+        timeBetweenPoints = (float)numSeconds / (float)plotW;
+
+        for (int i = 0; i < plotW; i++) {
+            float time = -(float)numSeconds + (float)i*timeBetweenPoints;
+            // float time = (-float(numSeconds))*(float(i)/float(nPoints));
+            // float filt_uV_value = dataBuffY_filtY_uV[channelNumber-1][dataBuffY_filtY_uV.length-nPoints];
+            float filt_uV_value = 0.0; //0.0 for all points to start
+            GPoint tempPoint = new GPoint(time, filt_uV_value);
+            channelPoints.set(i, tempPoint);
+        }
     }
 
     void update() {
@@ -535,12 +545,21 @@ class ChannelBar{
     void updatePlotPoints() {
         // update data in plot
         if(dataBuffY_filtY_uV[channelNumber-1].length > nPoints) {
-            for (int i = dataBuffY_filtY_uV[channelNumber-1].length - nPoints; i < dataBuffY_filtY_uV[channelNumber-1].length; i++) {
-                float time = -(float)numSeconds + (float)(i-(dataBuffY_filtY_uV[channelNumber-1].length-nPoints))*timeBetweenPoints;
-                float filt_uV_value = dataBuffY_filtY_uV[channelNumber-1][i];
+            int numPixels = plotW;
+            int firstSample = dataBuffY_filtY_uV[channelNumber-1].length - nPoints;
+            int lastSample = dataBuffY_filtY_uV[channelNumber-1].length;
+
+            // no need to plot more points than the number of pixels.
+            for (int i=0; i<numPixels; i++) {
+                float lerpFactor = (float)i / (float)numPixels;
+                int sampleIndex = lerpInt(firstSample, lastSample, lerpFactor);
+                
+                float time = -(float)numSeconds + (float)i*timeBetweenPoints;
+                float filt_uV_value = dataBuffY_filtY_uV[channelNumber-1][sampleIndex];
                 // float filt_uV_value = 0.0;
                 GPoint tempPoint = new GPoint(time, filt_uV_value);
-                channelPoints.set(i-(dataBuffY_filtY_uV[channelNumber-1].length-nPoints), tempPoint);
+
+                channelPoints.set(i, tempPoint);
             }
             plot.setPoints(channelPoints); //reset the plot with updated channelPoints
         }
@@ -565,7 +584,7 @@ class ChannelBar{
         stroke(31,69,110, 50);
         fill(color(125,30,12,30));
 
-        rect(x + 36 + 4 + impButton_diameter, y, w - 36 - 4 - impButton_diameter, h);
+        rect(plotX, y, plotW, h);
 
         plot.beginDraw();
         plot.drawBox(); // we won't draw this eventually ...
@@ -602,7 +621,6 @@ class ChannelBar{
         plot.setXLim(-_newTimeSize,0);
 
         nPoints = nPointsBasedOnDataSource();
-        channelPoints = new GPointsArray(nPoints);
         if(_newTimeSize > 1) {
             plot.getXAxis().setNTicks(_newTimeSize);  //sets the number of axis divisions...
         }else{
@@ -639,6 +657,8 @@ class ChannelBar{
         w = _w;
         h = _h;
 
+        calculatePlotDrawSize();
+
         if(h > 26) {
             onOff_diameter = 26;
             onOffButton.but_dx = onOff_diameter;
@@ -659,12 +679,12 @@ class ChannelBar{
         }
 
         //reposition & resize the plot
-        plot.setPos(x + 36 + 4 + impButton_diameter, y);
-        plot.setDim(w - 36 - 4 - impButton_diameter, h);
+        plot.setPos(plotX, y);
+        plot.setDim(plotW, h);
 
-        voltageValue.x = x + 36 + 4 + impButton_diameter + (w - 36 - 4 - impButton_diameter) - 2;
+        voltageValue.x = plotX + (plotW) - 2;
         voltageValue.y = y + h;
-        impValue.x = x + 36 + 4 + impButton_diameter + 2;
+        impValue.x = plotX + 2;
         impValue.y = y + h;
 
     }
