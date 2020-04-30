@@ -17,7 +17,7 @@ install:
 
 test_script:
  # - echo "running processing" && %APPVEYOR_BUILD_FOLDER%\temp\processing-3.5.4\processing-java.exe --force --sketch=%APPVEYOR_BUILD_FOLDER%\OpenBCI_GUI\ --output=%APPVEYOR_BUILD_FOLDER%\tmp --build
-  - echo "Build folder: " and %APPVEYOR_BUILD_FOLDER%
+  - echo "Build folder " and %APPVEYOR_BUILD_FOLDER%
   - python %APPVEYOR_BUILD_FOLDER%\release_script\make-release.py
 notifications:
   - provider: Email
