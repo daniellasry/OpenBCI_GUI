@@ -106,7 +106,7 @@ def build_app(sketch_dir, processing_command):
     # so we can't reliably check for success or failure
     print ("Using sketch: " + sketch_dir)
     print ("Using command: " + processing_command)
-    res = subprocess.check_output([processing_command, "--sketch=" + sketch_dir, "--export"])
+    res = subprocess.check_output([processing_command, "--sketch=" + sketch_dir, "--output=" + os.getcwd(), "--export"])
     print (res)
 
 
@@ -252,11 +252,11 @@ def main ():
 
     # run the build (processing-java)
     processing_command = args.processing_command
-    #build_app(sketch_dir, processing_command)
+    build_app(sketch_dir, processing_command)
 
     #package it up
-    #flavor = flavors[LOCAL_OS]
-    #package_app(sketch_dir, flavor, windows_signing, windows_pfx_path, windows_pfx_password)
+    flavor = flavors[LOCAL_OS]
+    package_app(sketch_dir, flavor, windows_signing, windows_pfx_path, windows_pfx_password)
 
 if __name__ == "__main__":
     main ()
