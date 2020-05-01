@@ -12,7 +12,12 @@
 #
 #########################################################################################
 
-import sys, os, shutil, platform, subprocess
+import sys
+import os
+import shutil
+import platform
+import subprocess
+import argparse
 
 # Fix Python 2.x.
 try: input = raw_input
@@ -232,24 +237,38 @@ def package_app(sketch_dir, flavor, windows_signing=False, windows_pfx_path = ''
         shutil.move(temp_dir, build_dir)
         print ("Done: " + shutil.make_archive(build_dir, 'zip', build_dir))
 
-### Build Sequence
-###########################################################
-# grab the sketch directory
-sketch_dir = find_sketch_dir()
-# ask about signing
-windows_signing, windows_pfx_path, windows_pfx_password = ask_windows_signing()
-# Cleanup to start
-cleanup_build_dirs(sketch_dir)
-# run the build (processing-java)
-build_app(sketch_dir)
-#package it up
-flavor = flavors[LOCAL_OS]
-package_app(sketch_dir, flavor, windows_signing, windows_pfx_path, windows_pfx_password)
+def main ():
+    parser = argparse.ArgumentParser ()
+    # use docs to check which parameters are required for specific board, e.g. for Cyton - set serial port
+    parser.add_argument ('--no-prompts', action = 'store_true', help  = 'whether to prompt the user for anything', required = False)
+    args = parser.parse_args ()
 
-# on window, also build the 32-bit version
-#if(LOCAL_OS == WINDOWS):
-    #flavor = flavors[WINDOWS32]
-    # run the 32-bit build (processing-java32)
-    #build_app(sketch_dir, True)
+    ### Build Sequence
+    ###########################################################
+    # grab the sketch directory
+    sketch_dir = find_sketch_dir()
+    # ask about signing
+    windows_signing = False
+    windows_pfx_path = ''
+    windows_pfx_password = ''
+    
+    if(not args.no_prompts):
+        windows_signing, windows_pfx_path, windows_pfx_password = ask_windows_signing()
+    # Cleanup to start
+    cleanup_build_dirs(sketch_dir)
+    # run the build (processing-java)
+    build_app(sketch_dir)
     #package it up
-    #package_app(sketch_dir, flavor, windows_signing, windows_pfx_path, windows_pfx_password)
+    flavor = flavors[LOCAL_OS]
+    package_app(sketch_dir, flavor, windows_signing, windows_pfx_path, windows_pfx_password)
+
+    # on window, also build the 32-bit version
+    #if(LOCAL_OS == WINDOWS):
+        #flavor = flavors[WINDOWS32]
+        # run the 32-bit build (processing-java32)
+        #build_app(sketch_dir, True)
+        #package it up
+        #package_app(sketch_dir, flavor, windows_signing, windows_pfx_path, windows_pfx_password)
+
+if __name__ == "__main__":
+    main ()
