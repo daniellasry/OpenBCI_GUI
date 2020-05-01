@@ -105,13 +105,17 @@ def build_app(sketch_dir, processing_command):
     # unfortunately, processing-java always returns exit code 1,
     # so we can't reliably check for success or failure
     print ("Using sketch: " + sketch_dir)
+    print ("Using command: " + processing_command)
+    res = ''
     try:
-        subprocess.check_call([processing_command, "--sketch=" + sketch_dir, "--export"])
+        res = subprocess.check_output([processing_command, "--sketch=" + sketch_dir, "--export"])
     except subprocess.CalledProcessError as err:
         print (err)
         print ("WARNING: Failed to build app.")
     else:
         print ("Successfully built app.")
+
+    print (res)
 
 ### Function: Package the app in the expected file structure
 ###########################################################
@@ -258,8 +262,8 @@ def main ():
     build_app(sketch_dir, processing_command)
 
     #package it up
-    #flavor = flavors[LOCAL_OS]
-    #package_app(sketch_dir, flavor, windows_signing, windows_pfx_path, windows_pfx_password)
+    flavor = flavors[LOCAL_OS]
+    package_app(sketch_dir, flavor, windows_signing, windows_pfx_path, windows_pfx_password)
 
 if __name__ == "__main__":
     main ()
