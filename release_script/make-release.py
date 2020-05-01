@@ -109,9 +109,9 @@ def build_app(sketch_dir, processing_command):
         subprocess.check_call([processing_command, "--sketch=" + sketch_dir, "--export"])
     except subprocess.CalledProcessError as err:
         print (err)
-        print ("WARNING: Failed to sign app.")
+        print ("WARNING: Failed to build app.")
     else:
-        print ("Successfully signed app.")
+        print ("Successfully built app.")
 
 ### Function: Package the app in the expected file structure
 ###########################################################
@@ -258,8 +258,8 @@ def main ():
     build_app(sketch_dir, processing_command)
 
     #package it up
-    flavor = flavors[LOCAL_OS]
-    package_app(sketch_dir, flavor, windows_signing, windows_pfx_path, windows_pfx_password)
+    #flavor = flavors[LOCAL_OS]
+    #package_app(sketch_dir, flavor, windows_signing, windows_pfx_path, windows_pfx_password)
 
 if __name__ == "__main__":
     main ()
