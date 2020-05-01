@@ -39,12 +39,6 @@ data_dir_names = {
     MAC : os.path.join("OpenBCI_GUI.app", "Contents", "Java", "data")
 }
 
-hub_dir_names = {
-    WINDOWS : "OpenBCIHub",
-    LINUX : "OpenBCIHub",
-    MAC : "OpenBCIHub.app"
-}
-
 ### Function: Rename flavor with GUI version
 ###########################################################
 def get_release_dir_name(sketch_dir, flavor):
@@ -143,47 +137,6 @@ def package_app(sketch_dir, flavor, windows_signing=False, windows_pfx_path = ''
         print ("WARNING: Could not delete source dir: " + source_dir)
     else:
         print ("Successfully deleted source dir.")
-
-    ### Ask user for the hub directory
-    ###########################################################
-    hub_dir = input("Drag and drop the HUB for " + flavor + " [ENTER to skip]: ")
-
-    if hub_dir: # if the hub_dir is not empty (user did not skip)
-        if LOCAL_OS == WINDOWS:
-            # sanity check: does this directory contain the hub executable?
-            hub_exe = os.path.join(hub_dir, "OpenBCIHub.exe")
-            while not os.path.isfile(hub_exe):
-                hub_dir = input("OpenBCIHub.exe not found in this directory, please re-enter: ")
-                hub_exe = os.path.join(hub_dir, "OpenBCIHub.exe")
-        if LOCAL_OS == LINUX:
-            # sanity check: does this directory contain the hub executable?
-            hub_exe = os.path.join(hub_dir, "OpenBCIHub")
-            while not os.path.isfile(hub_exe):
-                hub_dir = input("OpenBCIHub executable not found in this directory, please re-enter: ")
-                hub_exe = os.path.join(hub_dir, "OpenBCIHub")
-        elif LOCAL_OS == MAC:
-            while not hub_dir.endswith("OpenBCIHub.app"):
-                hub_dir = input("Expected a path to OpenBCIHub.app, please re-enter:")
-
-        ### Copy the Hub to the data directory
-        ###########################################################
-        # sanity check: data directory?
-        data_dir = os.path.join(build_dir, data_dir_names[LOCAL_OS])
-        if not os.path.isdir(data_dir):
-            sys.exit("ERROR: Could not find data directory: " + data_dir)
-
-        # copy Hub to data directory
-        hub_dest_dir = os.path.join(data_dir, hub_dir_names[LOCAL_OS])
-        try:
-            shutil.copytree(hub_dir, hub_dest_dir, symlinks=True)
-        except shutil.Error as err:
-            print (err)
-            print ("WARNING: Failed to copy the Hub to the data dir.")
-        except OSError as err:
-            print (err)
-            print ("WARNING: Failed to copy the Hub to the data dir. Perhaps it already exists?")
-        else:
-            print ("Successfully copied Hub to the data dir.")
 
     ### On mac, copy the icon file and sign the app
     ###########################################################
