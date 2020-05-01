@@ -18,7 +18,7 @@ test_script:
   - set PATH=%APPVEYOR_BUILD_FOLDER%\temp\processing-3.5.4;%PATH%
   # - echo "running processing" && %APPVEYOR_BUILD_FOLDER%\temp\processing-3.5.4\processing-java.exe --force --sketch=%APPVEYOR_BUILD_FOLDER%\OpenBCI_GUI\ --output=%APPVEYOR_BUILD_FOLDER%\tmp --build
   - cd %APPVEYOR_BUILD_FOLDER%
-  - python %APPVEYOR_BUILD_FOLDER%\release_script\make-release.py --no-prompts #--processing-command %APPVEYOR_BUILD_FOLDER%\temp\processing-3.5.4\processing-java.exe
+  - python %APPVEYOR_BUILD_FOLDER%\release_script\make-release.py --no-prompts --processing-command processing-ajaa #--processing-command %APPVEYOR_BUILD_FOLDER%\temp\processing-3.5.4\processing-java.exe
   #- C:\\projects\\openbci-gui-jsygc\\temp\\processing-3.5.4\\processing-java.exe --sketch=C:\\projects\\openbci-gui-jsygc\\OpenBCI_GUI\\ --output=%APPVEYOR_BUILD_FOLDER%\tmp --export
   - ls %APPVEYOR_BUILD_FOLDER%
 notifications:
