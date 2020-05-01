@@ -13,9 +13,11 @@ install:
   # cp libraries
   - mkdir %userprofile%\documents\processing\libraries
   - xcopy %APPVEYOR_BUILD_FOLDER%\OpenBCI_GUI\libraries\* %userprofile%\documents\processing\libraries /s /i /q
+  - mkdir C:\Program Files\processing-3.5.3\
+  - xcopy %APPVEYOR_BUILD_FOLDER%\temp\processing-3.5.3\ C:\Program Files\processing-3.5.3\ /s /i
 
 test_script:
-  - set PATH=%APPVEYOR_BUILD_FOLDER%\temp\processing-3.5.3;%PATH%
+  - set PATH=C:\Program Files\processing-3.5.3;%PATH%
   # - echo "running processing" && %APPVEYOR_BUILD_FOLDER%\temp\processing-3.5.3\processing-java.exe --force --sketch=%APPVEYOR_BUILD_FOLDER%\OpenBCI_GUI\ --output=%APPVEYOR_BUILD_FOLDER%\tmp --build
   - cd %APPVEYOR_BUILD_FOLDER%
   - ls "C:\Program Files\Java\jdk1.8.0"
