@@ -28,11 +28,9 @@ except NameError: pass
 MAC = 'Darwin'
 LINUX = 'Linux'
 WINDOWS = 'Windows'
-WINDOWS32 = 'Windows32'
 LOCAL_OS = platform.system()
 
 flavors = {
-    WINDOWS32 : "application.windows32",
     WINDOWS : "application.windows64",
     LINUX : "application.linux64",
     MAC : "application.macosx"
@@ -107,17 +105,11 @@ def ask_windows_signing():
 
 ### Function: Run a build using processing-java
 ###########################################################
-def build_app(sketch_dir, bit32 = False):
-    # 32-bit build requires you to have a 32-bit installation of processing
-    # then rename processing-java.exe to processing-java32.exe and add it to your PATH
-    command = "processing-java"
-    if bit32:
-        command += "32"
-
+def build_app(sketch_dir, processing_command):
     # unfortunately, processing-java always returns exit code 1,
     # so we can't reliably check for success or failure
     print ("Using sketch: " + sketch_dir)
-    subprocess.call([command, "--sketch=" + sketch_dir, "--export"])
+    subprocess.call([processing_command, "--sketch=" + sketch_dir, "--export"])
 
 ### Function: Package the app in the expected file structure
 ###########################################################
@@ -241,34 +233,32 @@ def main ():
     parser = argparse.ArgumentParser ()
     # use docs to check which parameters are required for specific board, e.g. for Cyton - set serial port
     parser.add_argument ('--no-prompts', action = 'store_true', help  = 'whether to prompt the user for anything', required = False)
+    parser.add_argument ('--processing-command', type = str, help  = 'name or dir of the processing executable', required = False, default = 'processing-java')
     args = parser.parse_args ()
 
     ### Build Sequence
     ###########################################################
     # grab the sketch directory
     sketch_dir = find_sketch_dir()
+
     # ask about signing
     windows_signing = False
     windows_pfx_path = ''
     windows_pfx_password = ''
-    
     if(not args.no_prompts):
         windows_signing, windows_pfx_path, windows_pfx_password = ask_windows_signing()
+
+    processing_command = args.processing_command
+
     # Cleanup to start
     cleanup_build_dirs(sketch_dir)
+
     # run the build (processing-java)
-    build_app(sketch_dir)
+    build_app(sketch_dir, processing_command)
+
     #package it up
     flavor = flavors[LOCAL_OS]
     package_app(sketch_dir, flavor, windows_signing, windows_pfx_path, windows_pfx_password)
-
-    # on window, also build the 32-bit version
-    #if(LOCAL_OS == WINDOWS):
-        #flavor = flavors[WINDOWS32]
-        # run the 32-bit build (processing-java32)
-        #build_app(sketch_dir, True)
-        #package it up
-        #package_app(sketch_dir, flavor, windows_signing, windows_pfx_path, windows_pfx_password)
 
 if __name__ == "__main__":
     main ()
