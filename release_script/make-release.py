@@ -248,12 +248,11 @@ def main ():
     if(not args.no_prompts):
         windows_signing, windows_pfx_path, windows_pfx_password = ask_windows_signing()
 
-    processing_command = args.processing_command
-
     # Cleanup to start
     cleanup_build_dirs(sketch_dir)
 
     # run the build (processing-java)
+    processing_command = args.processing_command
     build_app(sketch_dir, processing_command)
 
     #package it up
