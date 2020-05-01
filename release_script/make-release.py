@@ -101,12 +101,12 @@ def ask_windows_signing():
 
 ### Function: Run a build using processing-java
 ###########################################################
-def build_app(sketch_dir):
+def build_app(sketch_dir, flavor):
     # unfortunately, processing-java always returns exit code 1,
     # so we can't reliably check for success or failure
     # https://github.com/processing/processing/issues/5468
     print ("Using sketch: " + sketch_dir)
-    subprocess.call(["processing-java", "--sketch=" + sketch_dir, "--export"])
+    subprocess.call(["processing-java", "--sketch=" + sketch_dir, "--output=" +  os.path.join(sketch_dir, flavor), "--export"])
 
 ### Function: Package the app in the expected file structure
 ###########################################################
@@ -230,7 +230,6 @@ def main ():
     parser = argparse.ArgumentParser ()
     # use docs to check which parameters are required for specific board, e.g. for Cyton - set serial port
     parser.add_argument ('--no-prompts', action = 'store_true', help  = 'whether to prompt the user for anything', required = False)
-    parser.add_argument ('--processing-command', type = str, help  = 'name or dir of the processing executable', required = False, default = 'processing-java')
     args = parser.parse_args ()
 
     ### Build Sequence
@@ -248,11 +247,12 @@ def main ():
     # Cleanup to start
     cleanup_build_dirs(sketch_dir)
 
+    flavor = flavors[LOCAL_OS]
+
     # run the build (processing-java)
-    build_app(sketch_dir)
+    build_app(sketch_dir, flavor)
 
     #package it up
-    flavor = flavors[LOCAL_OS]
     package_app(sketch_dir, flavor, windows_signing, windows_pfx_path, windows_pfx_password)
 
 if __name__ == "__main__":
