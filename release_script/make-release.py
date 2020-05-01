@@ -106,16 +106,9 @@ def build_app(sketch_dir, processing_command):
     # so we can't reliably check for success or failure
     print ("Using sketch: " + sketch_dir)
     print ("Using command: " + processing_command)
-    res = ''
-    try:
-        res = subprocess.check_output([processing_command, "--sketch=" + sketch_dir, "--export"])
-    except subprocess.CalledProcessError as err:
-        print (err)
-        print ("WARNING: Failed to build app.")
-    else:
-        print ("Successfully built app.")
-
+    res = subprocess.check_output([processing_command, "--sketch=" + sketch_dir, "--export"])
     print (res)
+
 
 ### Function: Package the app in the expected file structure
 ###########################################################
