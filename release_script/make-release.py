@@ -104,6 +104,7 @@ def ask_windows_signing():
 def build_app(sketch_dir):
     # unfortunately, processing-java always returns exit code 1,
     # so we can't reliably check for success or failure
+    # https://github.com/processing/processing/issues/5468
     print ("Using sketch: " + sketch_dir)
     subprocess.call(["processing-java", "--sketch=" + sketch_dir, "--export"])
 
