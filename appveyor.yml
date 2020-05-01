@@ -16,7 +16,6 @@ install:
 
 test_script:
   - set PATH=%APPVEYOR_BUILD_FOLDER%\temp\processing-3.5.4;%PATH%
-  - C:\Program Files (x86)\Windows Kits\8.1\bin\x64\
   # - echo "running processing" && %APPVEYOR_BUILD_FOLDER%\temp\processing-3.5.4\processing-java.exe --force --sketch=%APPVEYOR_BUILD_FOLDER%\OpenBCI_GUI\ --output=%APPVEYOR_BUILD_FOLDER%\tmp --build
   - cd %APPVEYOR_BUILD_FOLDER%
   - ls %programfiles%
