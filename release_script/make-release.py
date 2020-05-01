@@ -101,12 +101,11 @@ def ask_windows_signing():
 
 ### Function: Run a build using processing-java
 ###########################################################
-def build_app(sketch_dir, processing_command):
+def build_app(sketch_dir):
     # unfortunately, processing-java always returns exit code 1,
     # so we can't reliably check for success or failure
     print ("Using sketch: " + sketch_dir)
-    print ("Using command: " + processing_command)
-    subprocess.call([processing_command, "--sketch=" + sketch_dir, "--export"])
+    subprocess.check_call(["processing-java", "--sketch=" + sketch_dir, "--export"])
 
 ### Function: Package the app in the expected file structure
 ###########################################################
@@ -249,8 +248,7 @@ def main ():
     cleanup_build_dirs(sketch_dir)
 
     # run the build (processing-java)
-    processing_command = args.processing_command
-    build_app(sketch_dir, processing_command)
+    build_app(sketch_dir)
 
     #package it up
     flavor = flavors[LOCAL_OS]
