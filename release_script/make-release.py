@@ -106,7 +106,7 @@ def build_app(sketch_dir, processing_command):
     # so we can't reliably check for success or failure
     print ("Using sketch: " + sketch_dir)
     print ("Using command: " + processing_command)
-    subprocess.call([processing_command, "--sketch=" + sketch_dir, "--output=" + os.getcwd(), "--export"])
+    subprocess.call([processing_command, "--sketch=" + sketch_dir, "--export"])
 
 ### Function: Package the app in the expected file structure
 ###########################################################
