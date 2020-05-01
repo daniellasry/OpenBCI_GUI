@@ -24,6 +24,7 @@ deploy_script:
   - python %APPVEYOR_BUILD_FOLDER%\release_script\make-release.py --no-prompts
   #- processing-java --force --sketch=C:\\projects\\openbci-gui-jsygc\\OpenBCI_GUI\\ --output=%APPVEYOR_BUILD_FOLDER%\tmp --export
   #- C:\\projects\\openbci-gui-jsygc\\temp\\processing-3.5.4\\processing-java.exe --sketch=C:\\projects\\openbci-gui-jsygc\\OpenBCI_GUI\\ --output=%APPVEYOR_BUILD_FOLDER%\tmp --export
+  
 
 notifications:
   - provider: Email
