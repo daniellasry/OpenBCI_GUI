@@ -7,6 +7,9 @@ clone_depth: 3
 
 build: off
 
+init:
+  - cmd: set PATH=%APPVEYOR_BUILD_FOLDER%\temp\processing-3.5.4;C:\Program Files (x86)\Windows Kits\10\bin\x64;%PATH%
+
 install:
   - mkdir %APPVEYOR_BUILD_FOLDER%\temp && cd %APPVEYOR_BUILD_FOLDER%\temp && appveyor DownloadFile https://download.processing.org/processing-3.5.4-windows64.zip
   - cd %APPVEYOR_BUILD_FOLDER%\temp && 7z x processing-3.5.4-windows64.zip -y -aoa
@@ -14,12 +17,10 @@ install:
   - mkdir %userprofile%\documents\processing\libraries
   - xcopy %APPVEYOR_BUILD_FOLDER%\OpenBCI_GUI\libraries\* %userprofile%\documents\processing\libraries /s /i /q
 
-test_script:
-  - set PATH=%APPVEYOR_BUILD_FOLDER%\temp\processing-3.5.4;%PATH%
-  - set PATH=C:\Program Files (x86)\Windows Kits\10\bin\x64;%PATH%
-  - echo %PATH%
-  # - echo "running processing" && %APPVEYOR_BUILD_FOLDER%\temp\processing-3.5.4\processing-java.exe --force --sketch=%APPVEYOR_BUILD_FOLDER%\OpenBCI_GUI\ --output=%APPVEYOR_BUILD_FOLDER%\tmp --build
+deploy_script:
   - cd %APPVEYOR_BUILD_FOLDER%
+  # - echo "running processing" && %APPVEYOR_BUILD_FOLDER%\temp\processing-3.5.4\processing-java.exe --force --sketch=%APPVEYOR_BUILD_FOLDER%\OpenBCI_GUI\ --output=%APPVEYOR_BUILD_FOLDER%\tmp --build
+
   - python %APPVEYOR_BUILD_FOLDER%\release_script\make-release.py --no-prompts
   #- processing-java --force --sketch=C:\\projects\\openbci-gui-jsygc\\OpenBCI_GUI\\ --output=%APPVEYOR_BUILD_FOLDER%\tmp --export
   #- C:\\projects\\openbci-gui-jsygc\\temp\\processing-3.5.4\\processing-java.exe --sketch=C:\\projects\\openbci-gui-jsygc\\OpenBCI_GUI\\ --output=%APPVEYOR_BUILD_FOLDER%\tmp --export
