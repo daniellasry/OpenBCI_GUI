@@ -105,7 +105,7 @@ def build_app(sketch_dir):
     # unfortunately, processing-java always returns exit code 1,
     # so we can't reliably check for success or failure
     print ("Using sketch: " + sketch_dir)
-    subprocess.check_call(["processing-java", "--sketch=" + sketch_dir, "--export"])
+    subprocess.call(["processing-java", "--sketch=" + sketch_dir, "--export"])
 
 ### Function: Package the app in the expected file structure
 ###########################################################
