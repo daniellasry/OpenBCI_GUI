@@ -249,6 +249,7 @@ def main ():
 
     # run the build (processing-java)
     processing_command = args.processing_command
+    print("Command" + processing_command)
     build_app(sketch_dir, processing_command)
 
     #package it up
