@@ -15,7 +15,7 @@ deploy:
   - secret_access_key:
     - secure: jeVYQ02OTywaENrIcWvoZg+YzGnhiluCDes/kaJE4NeVIZqjlipFt5yXxCct9S5w
   - bucket: openbci_gui
-  - folder: %APPVEYOR_REPO_BRANCH%/%DATE:~-4%-%DATE:~4,2%-%DATE:~7,2%_%APPVEYOR_REPO_COMMIT%
+  - folder: ${TRAVIS_BRANCH}/$(date +%F)_${TRAVIS_COMMIT}
 
 build: off
 
