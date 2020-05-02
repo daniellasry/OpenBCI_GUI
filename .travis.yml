@@ -20,11 +20,10 @@ install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
       curl -O -L https://download.processing.org/processing-3.5.4-macosx.zip && unzip processing-3.5.4-macosx.zip ;
     fi
+  - ls
   # cp libraries
   - mkdir -p $HOME/sketchbook/libraries/
   - cp -a $TRAVIS_BUILD_DIR/OpenBCI_GUI/libraries/. $HOME/sketchbook/libraries/
-  - ls -alp $TRAVIS_BUILD_DIR/OpenBCI_GUI/libraries/
-  - ls -alp $HOME/sketchbook/libraries/
 script:
   - cd $TRAVIS_BUILD_DIR
   - python $TRAVIS_BUILD_DIR/release_script/make-release.py --no-prompts  
