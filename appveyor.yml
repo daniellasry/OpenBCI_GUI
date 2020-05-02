@@ -5,6 +5,10 @@ stack: python 3
 
 clone_depth: 3
 
+artifacts:
+  - path: OpenBCI_GUI\openbcigui_*.zip
+  - path: OpenBCI_GUI\openbcigui_*.dmg
+
 build: off
 
 init:
