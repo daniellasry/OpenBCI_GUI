@@ -8,7 +8,7 @@ addons:
       - $(ls $TRAVIS_BUILD_DIR/OpenBCI_GUI/openbcigui_*.dmg | tr "\n" ":")
       - $(ls $TRAVIS_BUILD_DIR/OpenBCI_GUI/openbcigui_*.zip | tr "\n" ":")
     target_paths:
-      - /${TRAVIS_BRANCH}--${TRAVIS_PULL_REQUEST_BRANCH}/$(date +%F)_build-${TRAVIS_BUILD_NUMBER}_${TRAVIS_COMMIT}
+      - /${TRAVIS_BRANCH}--${TRAVIS_PULL_REQUEST_BRANCH}/$(date +%Y-%m-%d_%H-%M-%S)_${TRAVIS_COMMIT}
     working_dir: $TRAVIS_BUILD_DIR/OpenBCI_GUI/
 
 install:
