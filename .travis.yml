@@ -11,7 +11,7 @@ install:
   - tar -xzvf processing-3.5.4-linux64.tgz
   - ls
   # cp libraries
-  - mkdir ~/Documents/Processing/libraries
+  - mkdir -p ~/Documents/Processing/libraries
   - cp -a $TRAVIS_BUILD_DIR/OpenBCI_GUI/libraries/. ~/Documents/Processing/libraries/
 
 script:
