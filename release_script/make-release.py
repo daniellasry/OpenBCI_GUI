@@ -226,14 +226,13 @@ def package_app(sketch_dir, flavor, windows_signing=False, windows_pfx_path = ''
         shutil.move(temp_dir, build_dir)
         print ("Done: " + shutil.make_archive(build_dir, 'zip', build_dir))
 
+
 def main ():
     parser = argparse.ArgumentParser ()
     # use docs to check which parameters are required for specific board, e.g. for Cyton - set serial port
     parser.add_argument ('--no-prompts', action = 'store_true', help  = 'whether to prompt the user for anything', required = False)
     args = parser.parse_args ()
 
-    ### Build Sequence
-    ###########################################################
     # grab the sketch directory
     sketch_dir = find_sketch_dir()
 
