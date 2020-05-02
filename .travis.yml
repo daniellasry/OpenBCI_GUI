@@ -21,7 +21,7 @@ install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then mv $TRAVIS_BUILD_DIR/release_script/mac_only/processing-java /usr/local/bin/processing-java                ;fi
 #  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export PATH=$TRAVIS_BUILD_DIR/release_script/mac_only:$PATH                ;fi
 #  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then chmod +w $TRAVIS_BUILD_DIR/release_script/mac_only/processing-java         ;fi
-  - processing-java
+  - sudo processing-java
   
   #cp libraries
   - mkdir -p $HOME/sketchbook/libraries/
