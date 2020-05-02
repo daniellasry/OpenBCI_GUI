@@ -36,8 +36,8 @@ build_script:
   - python %APPVEYOR_BUILD_FOLDER%\release_script\make-release.py --no-prompts  
 
 deploy_script:
-  -  aws s3 cp %APPVEYOR_BUILD_FOLDER%\. s3://openbci-gui/%APPVEYOR_REPO_BRANCH%/%APPVEYOR_REPO_COMMIT% --recursive --exclude "*" --include "openbcigui_*.zip"
-  -  aws s3 cp %APPVEYOR_BUILD_FOLDER%\. s3://openbci-gui/%APPVEYOR_REPO_BRANCH%/latest --recursive --exclude "*" --include "openbcigui_*.zip"
+  -  aws s3 cp %APPVEYOR_BUILD_FOLDER%\. s3://openbci-gui/%APPVEYOR_REPO_BRANCH%/%APPVEYOR_REPO_COMMIT% --recursive --exclude "*" --include "openbcigui_*_windows64.zip"
+  -  aws s3 cp %APPVEYOR_BUILD_FOLDER%\. s3://openbci-gui/%APPVEYOR_REPO_BRANCH%/latest --recursive --exclude "*" --include "openbcigui_*_windows64.zip"
 
 notifications:
   - provider: Email
