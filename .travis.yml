@@ -2,6 +2,14 @@ os:
   - linux
   - osx
 
+addons:
+  artifacts:
+    paths: 
+      - $(ls $TRAVIS_BUILD_DIR/OpenBCI_GUI/openbcigui_*.dmg | tr "\n" ":")
+      - $(ls $TRAVIS_BUILD_DIR/OpenBCI_GUI/openbcigui_*.zip | tr "\n" ":")
+    target_paths:
+      - /$TRAVIS_BRANCH/$(date +%F)_$TRAVIS_COMMIT
+
 install:
   - mkdir $TRAVIS_BUILD_DIR/temp; cd $TRAVIS_BUILD_DIR/temp
 
