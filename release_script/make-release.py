@@ -172,7 +172,7 @@ def package_app(sketch_dir, flavor, windows_signing=False, windows_pfx_path = ''
         # On Windows, set the application manifest
         ###########################################################
         try:
-            subprocess.check_call(["mt", "-manifest", "release_script/gui.manifest",
+            subprocess.check_call(["mt", "-manifest", "release_script/windows_only/gui.manifest",
                 "-outputresource:" + exe_dir + ";#1"])
         except subprocess.CalledProcessError as err:
             print (err)
@@ -183,9 +183,9 @@ def package_app(sketch_dir, flavor, windows_signing=False, windows_pfx_path = ''
         assert (os.path.isfile(java_exe_dir))
         assert (os.path.isfile(javaw_exe_dir))
         try:
-            subprocess.check_call(["mt", "-manifest", "release_script/java.manifest",
+            subprocess.check_call(["mt", "-manifest", "release_script/windows_only/java.manifest",
                 "-outputresource:" + java_exe_dir + ";#1"])
-            subprocess.check_call(["mt", "-manifest", "release_script/java.manifest",
+            subprocess.check_call(["mt", "-manifest", "release_script/windows_only/java.manifest",
                 "-outputresource:" + javaw_exe_dir + ";#1"])
         except subprocess.CalledProcessError as err:
             print (err)
@@ -197,7 +197,7 @@ def package_app(sketch_dir, flavor, windows_signing=False, windows_pfx_path = ''
         app_dir = os.path.join(build_dir, "OpenBCI_GUI.app")
         dmg_dir = build_dir + ".dmg"
         try:
-            subprocess.check_call(["dmgbuild", "-s", "release_script/dmgbuild_settings.py", "-D",\
+            subprocess.check_call(["dmgbuild", "-s", "release_script/mac_only/dmgbuild_settings.py", "-D",\
                 "app=" + app_dir, "OpenBCI_GUI", dmg_dir])
         except subprocess.CalledProcessError as err:
             print (err)
