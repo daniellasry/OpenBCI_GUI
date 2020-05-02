@@ -8,6 +8,15 @@ clone_depth: 3
 artifacts:
   - path: OpenBCI_GUI\openbcigui_*.zip
 
+deploy:
+  provider: S3
+  access_key_id:
+    secure: 41Lh3mnlU+lVcr5eX3bTgmsKqcebacVgDOww7zb0r4E=
+  secret_access_key:
+    secure: jeVYQ02OTywaENrIcWvoZg+YzGnhiluCDes/kaJE4NeVIZqjlipFt5yXxCct9S5w
+  bucket: openbci_gui
+  folder: %APPVEYOR_REPO_BRANCH%/%DATE:~-4%-%DATE:~4,2%-%DATE:~7,2%_%APPVEYOR_REPO_COMMIT%
+
 build: off
 
 init:
@@ -15,8 +24,11 @@ init:
   - cmd: set PATH=%APPVEYOR_BUILD_FOLDER%\temp\processing-3.5.4;C:\Program Files (x86)\Windows Kits\10\bin\x64;%PATH%
 
 install:
-  - mkdir %APPVEYOR_BUILD_FOLDER%\temp && cd %APPVEYOR_BUILD_FOLDER%\temp && appveyor DownloadFile https://download.processing.org/processing-3.5.4-windows64.zip
-  - cd %APPVEYOR_BUILD_FOLDER%\temp && 7z x processing-3.5.4-windows64.zip -y -aoa
+  - mkdir %APPVEYOR_BUILD_FOLDER%\temp
+  - cd %APPVEYOR_BUILD_FOLDER%\temp
+  - appveyor DownloadFile https://download.processing.org/processing-3.5.4-windows64.zip
+  - cd %APPVEYOR_BUILD_FOLDER%\temp
+  - 7z x processing-3.5.4-windows64.zip -y -aoa
   # cp libraries
   - mkdir %userprofile%\documents\processing\libraries
   - xcopy %APPVEYOR_BUILD_FOLDER%\OpenBCI_GUI\libraries\* %userprofile%\documents\processing\libraries /s /i /q
