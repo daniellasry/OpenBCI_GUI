@@ -117,8 +117,8 @@ def package_app(sketch_dir, flavor, windows_signing=False, windows_pfx_path = ''
         sys.exit("ERROR: Could not find build ouput: " + build_dir)
 
     # rename the build dir
-    release_dir_name = get_release_dir_name(sketch_dir, flavor)
-    new_build_dir = os.path.join(sketch_dir, release_dir_name)
+    release_dir_name = get_release_dir_name(os.getcwd(), flavor)
+    new_build_dir = os.path.join(os.getcwd(), release_dir_name)
     os.rename(build_dir, new_build_dir)
     build_dir = new_build_dir
 
