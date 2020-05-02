@@ -10,6 +10,7 @@ artifacts:
 
 deploy:
   provider: S3
+  region: us-east-1
   access_key_id:
     secure: 41Lh3mnlU+lVcr5eX3bTgmsKqcebacVgDOww7zb0r4E=
   secret_access_key:
