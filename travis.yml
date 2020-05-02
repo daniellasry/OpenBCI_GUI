@@ -1,0 +1,21 @@
+os:
+  - linux
+  #- osx
+
+install:
+  - export PATH=$TRAVIS_BUILD_DIR\temp\processing-3.5.4:$PATH
+  - mkdir $TRAVIS_BUILD_DIR\temp; cd $TRAVIS_BUILD_DIR\temp
+  - curl https://download.processing.org/processing-3.5.4-linux64.tgz
+  - 7z x processing-3.5.4-windows64.zip -y -aoa
+  # cp libraries
+  - mkdir ~\Documents\Processing\libraries
+  - xcopy $TRAVIS_BUILD_DIR\OpenBCI_GUI\libraries\* ~\Documents\Processing\libraries /s /i /q
+
+script:
+  - cd $TRAVIS_BUILD_DIR
+  - python $TRAVIS_BUILD_DIR\release_script\make-release.py --no-prompts  
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
