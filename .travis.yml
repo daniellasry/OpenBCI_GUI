@@ -9,7 +9,7 @@ addons:
       - $(ls $TRAVIS_BUILD_DIR/openbcigui_*.zip | tr "\n" ":")
     target_paths:
       - /${TRAVIS_BRANCH}/${TRAVIS_COMMIT}
-    working_dir: $TRAVIS_BUILD_DIR/OpenBCI_GUI/
+    working_dir: $TRAVIS_BUILD_DIR
 
 install:
   - mkdir $TRAVIS_BUILD_DIR/temp; cd $TRAVIS_BUILD_DIR/temp
