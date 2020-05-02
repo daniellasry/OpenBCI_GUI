@@ -12,7 +12,7 @@ install:
   - tar -xzvf processing-3.5.4-linux64.tgz
   # cp libraries
   - mkdir -p $HOME/Documents/Processing/libraries
-  - cp -a $TRAVIS_BUILD_DIR/OpenBCI_GUI/libraries/. $HOME/Documents/Processing/libraries/
+  - cp -a $TRAVIS_BUILD_DIR/OpenBCI_GUI/libraries/. $HOME/sketchbook/libraries/
   - ls -alp $TRAVIS_BUILD_DIR/OpenBCI_GUI/libraries/
   - ls -alp $HOME/Documents/Processing/libraries/
   - ls -alp $HOME/Documents/
