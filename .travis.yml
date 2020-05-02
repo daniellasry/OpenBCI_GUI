@@ -11,14 +11,14 @@ os:
 install:
   - mkdir $TRAVIS_BUILD_DIR/temp; cd $TRAVIS_BUILD_DIR/temp
 
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then curl -O -L https://download.processing.org/processing-3.5.4-linux64.tgz ;fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then tar -xzvf processing-3.5.4-linux64.tgz ;fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then curl -O -L export PATH=$TRAVIS_BUILD_DIR/temp/processing-3.5.4:$PATH ;fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then curl -O -L https://download.processing.org/processing-3.5.4-linux64.tgz  ;fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then tar -xzvf processing-3.5.4-linux64.tgz                                   ;fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then curl -O -L export PATH=$TRAVIS_BUILD_DIR/temp/processing-3.5.4:$PATH     ;fi
   
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then curl -O -L https://download.processing.org/processing-3.5.4-macosx.zip ;fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then unzip processing-3.5.4-macosx.zip ;fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then cp Processing.app /Applications/Processing.app ;fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export PATH=$TRAVIS_BUILD_DIR/release_script/mac_only:$PATH ;fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then curl -O -L https://download.processing.org/processing-3.5.4-macosx.zip     ;fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then unzip processing-3.5.4-macosx.zip                                          ;fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then mv Processing.app /Applications/Processing.app                             ;fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export PATH=$TRAVIS_BUILD_DIR/release_script/mac_only:$PATH                ;fi
   
   #cp libraries
   - mkdir -p $HOME/sketchbook/libraries/
