@@ -8,17 +8,10 @@ clone_depth: 3
 artifacts:
   - path: openbcigui_*.zip
 
-deploy:
-  provider: S3
-  region: us-east-1
-  access_key_id:
-    secure: 41Lh3mnlU+lVcr5eX3bTgmsKqcebacVgDOww7zb0r4E=
-  secret_access_key:
-    secure: jeVYQ02OTywaENrIcWvoZg+YzGnhiluCDes/kaJE4NeVIZqjlipFt5yXxCct9S5w
-  bucket: openbci-gui
-  folder:
-    - ${APPVEYOR_REPO_BRANCH}/${APPVEYOR_REPO_COMMIT}
-    - ${APPVEYOR_REPO_BRANCH}/latest
+AWS_ACCESS_KEY_ID:
+  secure: 41Lh3mnlU+lVcr5eX3bTgmsKqcebacVgDOww7zb0r4E=
+AWS_SECRET_ACCESS_KEY:
+  secure: jeVYQ02OTywaENrIcWvoZg+YzGnhiluCDes/kaJE4NeVIZqjlipFt5yXxCct9S5w
 
 build: off
 
@@ -35,10 +28,15 @@ install:
   # cp libraries
   - mkdir %userprofile%\documents\processing\libraries
   - xcopy %APPVEYOR_BUILD_FOLDER%\OpenBCI_GUI\libraries\* %userprofile%\documents\processing\libraries /s /i /q
+  - pip install awscli
 
 build_script:
   - cd %APPVEYOR_BUILD_FOLDER%
   - python %APPVEYOR_BUILD_FOLDER%\release_script\make-release.py --no-prompts  
+
+deploy_script:
+  -  aws s3 cp %APPVEYOR_BUILD_FOLDER%\openbcigui_*.zip s3://openbci-gui/${APPVEYOR_REPO_BRANCH}/${APPVEYOR_REPO_COMMIT}
+  -  aws s3 cp %APPVEYOR_BUILD_FOLDER%\openbcigui_*.zip s3://openbci-gui/${APPVEYOR_REPO_BRANCH}/latest
 
 notifications:
   - provider: Email
