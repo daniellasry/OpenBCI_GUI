@@ -11,7 +11,7 @@ install:
   - curl -O -L https://download.processing.org/processing-3.5.4-linux64.tgz
   - tar -xzvf processing-3.5.4-linux64.tgz
   # cp libraries
-  - mkdir -p $HOME/Documents/Processing/libraries
+  - mkdir -p $HOME/sketchbook/libraries/
   - cp -a $TRAVIS_BUILD_DIR/OpenBCI_GUI/libraries/. $HOME/sketchbook/libraries/
   - ls -alp $TRAVIS_BUILD_DIR/OpenBCI_GUI/libraries/
   - ls -alp $HOME/Documents/Processing/libraries/
