@@ -11,12 +11,12 @@ install:
   - curl -O -L https://download.processing.org/processing-3.5.4-linux64.tgz
   - tar -xzvf processing-3.5.4-linux64.tgz
   # cp libraries
-  - mkdir -p ~/Documents/Processing/libraries
-  - cp -a $TRAVIS_BUILD_DIR/OpenBCI_GUI/libraries/. ~/Documents/Processing/libraries/
+  - mkdir -p $HOME/Documents/Processing/libraries
+  - cp -a $TRAVIS_BUILD_DIR/OpenBCI_GUI/libraries/. $HOME/Documents/Processing/libraries/
   - ls -alp $TRAVIS_BUILD_DIR/OpenBCI_GUI/libraries/
-  - ls -alp ~/Documents/Processing/libraries/
-  - ls -alp ~/Documents/
-  - ls -alp ~/Documents/Processing/
+  - ls -alp $HOME/Documents/Processing/libraries/
+  - ls -alp $HOME/Documents/
+  - ls -alp $HOME/Documents/Processing/
 
 script:
   - cd $TRAVIS_BUILD_DIR
