@@ -106,13 +106,13 @@ def build_app(sketch_dir, flavor):
     # so we can't reliably check for success or failure
     # https://github.com/processing/processing/issues/5468
     print ("Using sketch: " + sketch_dir)
-    subprocess.call(["processing-java", "--sketch=" + sketch_dir, "--output=" +  os.path.join(sketch_dir, flavor), "--export"])
+    subprocess.call(["processing-java", "--sketch=" + sketch_dir, "--output=" +  os.path.join(os.getcwd(), flavor), "--export"])
 
 ### Function: Package the app in the expected file structure
 ###########################################################
 def package_app(sketch_dir, flavor, windows_signing=False, windows_pfx_path = '', windows_pfx_password = ''):
     # sanity check: is the build output there?
-    build_dir = os.path.join(sketch_dir, flavor)
+    build_dir = os.path.join(os.getcwd(), flavor)
     if not os.path.isdir(build_dir):
         sys.exit("ERROR: Could not find build ouput: " + build_dir)
 
