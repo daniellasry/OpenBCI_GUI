@@ -7,9 +7,8 @@ language: java
 install:
   - export PATH=$TRAVIS_BUILD_DIR/temp/processing-3.5.4:$PATH
   - mkdir $TRAVIS_BUILD_DIR/temp; cd $TRAVIS_BUILD_DIR/temp
-  - curl -O https://github.com/processing/processing/releases/download/processing-0270-3.5.4/processing-3.5.4-linux64.tgz
-  - file processing-3.5.4-linux64.tgz
-  - tar -xvf processing-3.5.4-linux64.tgz
+  - curl -O -L https://download.processing.org/processing-3.5.4-linux64.tgz
+  - tar -xzvf processing-3.5.4-linux64.tgz
   - ls
 #  # cp libraries
 #  - mkdir ~\Documents\Processing\libraries
