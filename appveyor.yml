@@ -29,15 +29,15 @@ install:
   # cp libraries
   - mkdir %userprofile%\documents\processing\libraries
   - xcopy %APPVEYOR_BUILD_FOLDER%\OpenBCI_GUI\libraries\* %userprofile%\documents\processing\libraries /s /i /q
-  - pip install awscli
+  - pip install awscli > awscli_install.txt
 
 build_script:
   - cd %APPVEYOR_BUILD_FOLDER%
   - python %APPVEYOR_BUILD_FOLDER%\release_script\make-release.py --no-prompts  
 
 deploy_script:
-  -  aws s3 cp %APPVEYOR_BUILD_FOLDER%\openbcigui_*.zip s3://openbci-gui/${APPVEYOR_REPO_BRANCH}/${APPVEYOR_REPO_COMMIT}
-  -  aws s3 cp %APPVEYOR_BUILD_FOLDER%\openbcigui_*.zip s3://openbci-gui/${APPVEYOR_REPO_BRANCH}/latest
+  -  aws s3 cp %APPVEYOR_BUILD_FOLDER%\. s3://openbci-gui/${APPVEYOR_REPO_BRANCH}/${APPVEYOR_REPO_COMMIT} --recursive --exclude "*" --include "openbcigui_*.zip"
+  -  aws s3 cp %APPVEYOR_BUILD_FOLDER%\. s3://openbci-gui/${APPVEYOR_REPO_BRANCH}/latest --recursive --exclude "*" --include "openbcigui_*.zip"
 
 notifications:
   - provider: Email
