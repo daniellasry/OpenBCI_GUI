@@ -18,6 +18,7 @@ install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then chmod +x $TRAVIS_BUILD_DIR/release_script/mac_only/processing-java                                   ;fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then mkdir -p $HOME/Documents/Processing/libraries/                                                       ;fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then cp -a $TRAVIS_BUILD_DIR/OpenBCI_GUI/libraries/. $HOME/Documents/Processing/libraries/                ;fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then pip install dmgbuild                                                                                 ;fi
 
 script:
   - cd $TRAVIS_BUILD_DIR
