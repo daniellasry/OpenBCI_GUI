@@ -10,17 +10,19 @@ os:
 
 install:
   - mkdir $TRAVIS_BUILD_DIR/temp; cd $TRAVIS_BUILD_DIR/temp
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then
-      curl -O -L https://download.processing.org/processing-3.5.4-linux64.tgz
-      tar -xzvf processing-3.5.4-linux64.tgz
-      export PATH=$TRAVIS_BUILD_DIR/temp/processing-3.5.4:$PATH
-    fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
-      curl -O -L https://download.processing.org/processing-3.5.4-macosx.zip
-      unzip processing-3.5.4-macosx.zip
-      cp Processing.app /Applications/Processing.app
-      export PATH=$TRAVIS_BUILD_DIR/release_script/mac_only:$PATH
-    fi
+  - |
+  if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+    curl -O -L https://download.processing.org/processing-3.5.4-linux64.tgz
+    tar -xzvf processing-3.5.4-linux64.tgz
+    export PATH=$TRAVIS_BUILD_DIR/temp/processing-3.5.4:$PATH
+  fi
+  - |
+  if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+    curl -O -L https://download.processing.org/processing-3.5.4-macosx.zip
+    unzip processing-3.5.4-macosx.zip
+    cp Processing.app /Applications/Processing.app
+    export PATH=$TRAVIS_BUILD_DIR/release_script/mac_only:$PATH
+  fi
   - ls
   # cp libraries
   - mkdir -p $HOME/sketchbook/libraries/
