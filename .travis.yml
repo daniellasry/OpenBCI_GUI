@@ -5,6 +5,7 @@ os:
 language: java
 
 install:
+  # add processing to path
   - export PATH=$TRAVIS_BUILD_DIR/temp/processing-3.5.4:$PATH
   - mkdir $TRAVIS_BUILD_DIR/temp; cd $TRAVIS_BUILD_DIR/temp
   - curl -O -L https://download.processing.org/processing-3.5.4-linux64.tgz
@@ -14,6 +15,8 @@ install:
   - cp -a $TRAVIS_BUILD_DIR/OpenBCI_GUI/libraries/. ~/Documents/Processing/libraries/
   - ls -alp $TRAVIS_BUILD_DIR/OpenBCI_GUI/libraries/
   - ls -alp ~/Documents/Processing/libraries/
+  - ls -alp ~/Documents/
+  - ls -alp ~/Documents/Processing/
 
 script:
   - cd $TRAVIS_BUILD_DIR
