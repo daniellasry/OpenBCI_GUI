@@ -9,13 +9,13 @@ artifacts:
   - path: OpenBCI_GUI\openbcigui_*.zip
 
 deploy:
-  - provider: S3
-  - access_key_id:
-    - secure: 41Lh3mnlU+lVcr5eX3bTgmsKqcebacVgDOww7zb0r4E=
-  - secret_access_key:
-    - secure: jeVYQ02OTywaENrIcWvoZg+YzGnhiluCDes/kaJE4NeVIZqjlipFt5yXxCct9S5w
-  - bucket: openbci_gui
-  - folder: ${TRAVIS_BRANCH}/$(date +%F)_${TRAVIS_COMMIT}
+  provider: S3
+  access_key_id:
+    secure: 41Lh3mnlU+lVcr5eX3bTgmsKqcebacVgDOww7zb0r4E=
+  secret_access_key:
+    secure: jeVYQ02OTywaENrIcWvoZg+YzGnhiluCDes/kaJE4NeVIZqjlipFt5yXxCct9S5w
+  bucket: openbci_gui
+  folder: ${TRAVIS_BRANCH}/$(date +%F)_${TRAVIS_COMMIT}
 
 build: off
 
