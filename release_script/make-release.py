@@ -70,11 +70,11 @@ def find_sketch_dir():
 
 ### Function: Clean up any old build directories or .zips
 ###########################################################
-def cleanup_build_dirs(sketch_dir):
+def cleanup_build_dirs():
     print("Cleanup ...")
-    for file in os.listdir(sketch_dir):
+    for file in os.listdir(os.getcwd()):
         if file.startswith("application.") or file.startswith("openbcigui_"):
-            file_path = os.path.join(sketch_dir, file)
+            file_path = os.path.join(os.getcwd(), file)
             if os.path.isdir(file_path):
                 shutil.rmtree(file_path)
                 print ("Successfully deleted " + file)
@@ -244,7 +244,7 @@ def main ():
         windows_signing, windows_pfx_path, windows_pfx_password = ask_windows_signing()
 
     # Cleanup to start
-    cleanup_build_dirs(sketch_dir)
+    cleanup_build_dirs()
 
     flavor = flavors[LOCAL_OS]
 
