@@ -11,21 +11,20 @@ os:
 install:
   - mkdir $TRAVIS_BUILD_DIR/temp; cd $TRAVIS_BUILD_DIR/temp
 
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then curl -O -L https://download.processing.org/processing-3.5.4-linux64.tgz  ;fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then tar -xzvf processing-3.5.4-linux64.tgz                                   ;fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then curl -O -L export PATH=$TRAVIS_BUILD_DIR/temp/processing-3.5.4:$PATH     ;fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then curl -O -L https://download.processing.org/processing-3.5.4-linux64.tgz                            ;fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then tar -xzvf processing-3.5.4-linux64.tgz                                                             ;fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then export PATH=$TRAVIS_BUILD_DIR/temp/processing-3.5.4:$PATH                                          ;fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then mkdir -p $HOME/sketchbook/libraries/                                                               ;fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then cp -a $TRAVIS_BUILD_DIR/OpenBCI_GUI/libraries/. $HOME/sketchbook/libraries/                        ;fi
   
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then curl -O -L https://download.processing.org/processing-3.5.4-macosx.zip     ;fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then unzip processing-3.5.4-macosx.zip                                          ;fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then mv Processing.app /Applications/Processing.app                             ;fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then mv $TRAVIS_BUILD_DIR/release_script/mac_only/processing-java /usr/local/bin/processing-java                ;fi
-#  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export PATH=$TRAVIS_BUILD_DIR/release_script/mac_only:$PATH                ;fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then chmod +x /usr/local/bin/processing-java         ;fi
-  - processing-java
-  
-  #cp libraries
-  - mkdir -p $HOME/sketchbook/libraries/
-  - cp -a $TRAVIS_BUILD_DIR/OpenBCI_GUI/libraries/. $HOME/sketchbook/libraries/
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then curl -O -L https://download.processing.org/processing-3.5.4-macosx.zip                               ;fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then unzip processing-3.5.4-macosx.zip                                                                    ;fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then mv Processing.app /Applications/Processing.app                                                       ;fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export PATH=$TRAVIS_BUILD_DIR/release_script/mac_only:$PATH                                          ;fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then chmod +x PATH=$TRAVIS_BUILD_DIR/release_script/mac_only/processing-java                              ;fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then mkdir -p $HOME/Documents/Processing/libraries/                                                       ;fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then cp -a $TRAVIS_BUILD_DIR/OpenBCI_GUI/libraries/. $HOME/sketchDocuments/Processingbook/libraries/      ;fi
+
 script:
   - cd $TRAVIS_BUILD_DIR
   - python $TRAVIS_BUILD_DIR/release_script/make-release.py --no-prompts  
