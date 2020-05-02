@@ -4,6 +4,12 @@ os:
 
 language: java
 
+addons:
+  homebrew:
+    packages:
+      - copreutils
+  #  update: true
+
 install:
   # add processing to path
   - export PATH=$TRAVIS_BUILD_DIR/temp/processing-3.5.4:$PATH
