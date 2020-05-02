@@ -8,10 +8,11 @@ clone_depth: 3
 artifacts:
   - path: openbcigui_*.zip
 
-AWS_ACCESS_KEY_ID:
-  secure: 41Lh3mnlU+lVcr5eX3bTgmsKqcebacVgDOww7zb0r4E=
-AWS_SECRET_ACCESS_KEY:
-  secure: jeVYQ02OTywaENrIcWvoZg+YzGnhiluCDes/kaJE4NeVIZqjlipFt5yXxCct9S5w
+environment:
+  AWS_ACCESS_KEY_ID:
+    secure: 41Lh3mnlU+lVcr5eX3bTgmsKqcebacVgDOww7zb0r4E=
+  AWS_SECRET_ACCESS_KEY:
+    secure: jeVYQ02OTywaENrIcWvoZg+YzGnhiluCDes/kaJE4NeVIZqjlipFt5yXxCct9S5w
 
 build: off
 
