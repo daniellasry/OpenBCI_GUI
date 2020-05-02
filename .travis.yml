@@ -4,18 +4,24 @@ os:
 
 language: java
 
-addons:
-  homebrew:
-    packages:
-      - copreutils
-  #  update: true
+# addons:
+#   homebrew:
+#     packages:
+#       - copreutils
+#   #  update: true
 
 install:
   # add processing to path
   - export PATH=$TRAVIS_BUILD_DIR/temp/processing-3.5.4:$PATH
   - mkdir $TRAVIS_BUILD_DIR/temp; cd $TRAVIS_BUILD_DIR/temp
-  - curl -O -L https://download.processing.org/processing-3.5.4-linux64.tgz
-  - tar -xzvf processing-3.5.4-linux64.tgz
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+      curl -O -L https://download.processing.org/processing-3.5.4-linux64.tgz ;
+  -   tar -xzvf processing-3.5.4-linux64.tgz ;
+    fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+      curl -O -L https://download.processing.org/processing-3.5.4-macosx.zip ;
+      unzip processing-3.5.4-macosx.zip;
+    fi
   # cp libraries
   - mkdir -p $HOME/sketchbook/libraries/
   - cp -a $TRAVIS_BUILD_DIR/OpenBCI_GUI/libraries/. $HOME/sketchbook/libraries/
