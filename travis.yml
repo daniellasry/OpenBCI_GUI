@@ -2,6 +2,8 @@ os:
   - linux
   #- osx
 
+  language: java
+
 install:
   - export PATH=$TRAVIS_BUILD_DIR\temp\processing-3.5.4:$PATH
   - mkdir $TRAVIS_BUILD_DIR\temp; cd $TRAVIS_BUILD_DIR\temp
